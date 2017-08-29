@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8"/>
+    <title>分类列表</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous"/>
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous"/>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container-fluid" style="margin: 15px;">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li>
+                    <a href="./classify">子分类</a>
+                </li>
+                <li>
+                    <a href="./garbage">垃圾信息</a>
+                </li>
+                <li class="active">
+                    <a href="#">关键字</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-12 panel panel-default"
+             style="margin-left: 10px; margin-right: 10px; padding-top: 10px; padding-bottom: 10px; height: auto;">
+            <div th:each="collect : ${klist}"
+                 style="float: left; min-height: 30px; border: 1px solid #A4D3EE; border-radius: 3px;padding-top: 5px;margin: 5px; ">
+                <span th:text="${collect.keywords}" style="margin-left: 3px;"></span>
+                <a th:href="@{'./keywords_del?kid='+${collect.id}}">
+                    <button type="button" class="btn btn-xs btn-link">
+                        删除
+                    </button></a>
+            </div>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

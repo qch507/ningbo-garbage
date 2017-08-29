@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8"/>
+    <title>分类列表</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous"/>
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous"/>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <script type="text/javascript" th:src="@{/backend.js}"></script>
+</head>
+<body>
+
+<div class="container-fluid" style="margin: 15px;">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li>
+                    <a href="./classify">子分类</a>
+                </li>
+                <li class="active">
+                    <a href="#">垃圾信息</a>
+                </li>
+                <li>
+                    <a href="./keywords">关键字</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-8">
+            <!--<form class="bs-example bs-example-form" role="form">-->
+                <!--<div class="input-group">-->
+                    <!--<input type="text" class="form-control"/>-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button class="btn btn-default" type="button">搜索</button>-->
+                    <!--</span>-->
+                <!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
+            <!--</form>-->
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary" style="float: right;" onclick="showModeladd()">
+                添加
+            </button>
+        </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-12 panel panel-default" style="margin-left: 10px; margin-right: 10px;">
+            <table class="table table-condensed table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>
+                        编号
+                    </th>
+                    <th>
+                        名称
+                    </th>
+                    <th>
+                        大分类
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="collect : ${clist}">
+                    <td th:text="${collect.id}">
+                        1
+                    </td>
+                    <td th:text="${collect.gName}">
+                        TB - Monthly
+                    </td>
+                    <td th:text="${collect.pName}">
+                        01/04/2012
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-xs btn-link"
+                                th:onclick="'javascript:showModeledit(
+                                \''+${collect.gName}+'\',\''+${collect.pName}+'\','+${collect.id}+');'">
+                            编辑
+                        </button>
+                        <a th:href="@{'./garbage_del?gid='+${collect.id}}">
+                        <button type="button" class="btn btn-xs btn-link">
+                            删除
+                        </button></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">修改分类</h4>
+            </div>
+            <form class="form-horizontal" role="form" action="./garbage_edit">
+                <div class="modal-body">
+
+                    <div class="form-group">
+
+                        <label for="input_cname" class="col-sm-2 control-label">
+                             垃圾名称
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="input_cname" name="gName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label for="inputSelect" class="col-sm-2 control-label">
+                            大分类
+                        </label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="inputSelect" name="pName">
+                                <option th:each="collect : ${plist}" th:text="${collect}">1</option>
+                            </select>
+                            <input type="hidden" id="cid" name="id" value=""/>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">提交更改</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</body>
+</html>

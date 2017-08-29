@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>垃圾分类</title>
+    <link rel="stylesheet" th:href="@{/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/index.js}"></script>
+</head>
+<body>
+<div id="main" th:style="'background:#ffffff url('+@{/f_bg.jpg}+') repeat-x left bottom;padding-bottom: 10px;'">
+    <div class="logo"><img th:src="@{/logo.jpg}" alt=""/></div>
+    <div class="title" style="color:#fff;">直接查询</div>
+    <div class="search">
+        <input type="text" class="text" id="keywords"/>
+        <input type="submit" class="go go_check" style="color:#fff;"/>
+    </div>
+    <div class="title" style="background-color:#009bd7;color:#ffffff;">分类查询</div>
+
+    <div class="listbox" style="display:block;">
+        <a th:each="collect : ${chuyu}" class="green" th:text="${collect.cName}"></a>
+
+        <a th:each="collect : ${huishou}" class="blue" th:text="${collect.cName}"></a>
+
+        <a th:each="collect : ${youhai}" class="red" th:text="${collect.cName}"></a>
+
+        <a th:each="collect : ${qita}" class="black" th:text="${collect.cName}"></a>
+
+    </div>
+'
+    <div class="title" style="margin-left: 10%;;margin-top:50px;width: 80%;background-color:#009bd7;">
+        <a href="http://mp.weixin.qq.com/s/X1ltQISox6k22TdU4GFr4A" style="color:#fff;">
+        垃圾分类指南</a>
+    </div>
+    <!--<div class="img"><img src="/lajifenlei/Public/images/f_bg.jpg" width="100%" alt=""></div>-->
+    <div style="text-align: center;"><span style="font-size:10px;">技术支持:浙江六课文化科技有限公司</span></div>
+</div>
+
+<div id="goodcover"></div>
+<div id="code">
+    <div class="close1"><a href="javascript:void(0)" id="closebt"><img th:src="@{/close.gif}"/></a></div>
+    <div class="goodtxt">
+        <p id="text_content">垃圾分类指南</p>
+    </div>
+</div>
+
+</body>
+</html>
